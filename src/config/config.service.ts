@@ -10,6 +10,7 @@ export class ConfigService {
     private readonly envConfig: EnvConfig;
 
     constructor(filePath: string) {
+        filePath = filePath.includes("undefined") ? "env/development.env" : filePath
         const config = dotenv.parse(fs.readFileSync(filePath));
         this.envConfig = this.validateInput(config);
     }
@@ -36,9 +37,22 @@ export class ConfigService {
             DATABASE_DB: Joi.string().required(),
 
             DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
-            
+
             DATABASE_DROPSCHEMA: Joi.boolean().default(false),
 
+            REDIS_HOST: Joi.string().default('localhost'),
+            REDIS_PORT: Joi.number().default(3306),
+            REDIS_DB: Joi.string().default(1000),
+            REDIS_NAME: Joi.string().default('db'),
+            REDIS_PASSWORD: Joi.string(),
+
+
+            EMAIL_HOST: Joi.string(),
+            EMAIL_SERVICE: Joi.string(),
+            EMAIL_PORT: Joi.number(),
+            EMAIL_USER: Joi.string(),
+            EMAIL_PWD: Joi.string(),
+            EMAIL_FROM: Joi.string(),
         });
 
         const { error, value: validatedEnvConfig } = Joi.validate(
@@ -93,5 +107,45 @@ export class ConfigService {
 
     get databaseDropSchema(): boolean {
         return Boolean(this.envConfig.DATABASE_DROPSCHEMA);
+    }
+
+    get redisHost(): string {
+        return this.envConfig.REDIS_HOST;
+    }
+    get redisPort(): number {
+        return Number(this.envConfig.REDIS_PORT);
+    }
+    get redisDb(): number {
+        return Number(this.envConfig.REDIS_DB);
+    }
+    get redisName(): string {
+        return this.envConfig.REDIS_NAME;
+    }
+    get redisPwd(): string {
+        return this.envConfig.REDIS_PASSWORD;
+    }
+
+
+    get emailHost(): string {
+        return this.envConfig.EMAIL_HOST;
+    }
+    get emailPort(): string {
+        return this.envConfig.EMAIL_PORT;
+    }
+    get emailUser(): string {
+        return this.envConfig.EMAIL_USER;
+    }
+    get emailPwd(): string {
+        return this.envConfig.EMAIL_PWD;
+    }
+    get emailService(): string {
+        return this.envConfig.EMAIL_SERVICE;
+    }
+    get emailAuth(): any {
+        return {
+            user: this.envConfig.EMAIL_USER,
+            // 这里密码不是qq密码，是你设置的smtp授权码
+            pass: this.envConfig.EMAIL_PWD
+        }
     }
 }

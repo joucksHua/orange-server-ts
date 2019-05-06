@@ -9,7 +9,6 @@ export class UsersService implements IUserService {
         { id: 2, name: '小红', age: 16 },
         { id: 3, name: '小壮', age: 20 },
     ];
-
     async findAll(): Promise<User[]> {
         return UsersService.users;
     }
