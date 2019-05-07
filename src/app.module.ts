@@ -2,7 +2,7 @@ import { Module, DynamicModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisModule } from 'nestjs-redis'
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './app/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { ConfigService } from './config/config.service';
 import * as Path from 'path';

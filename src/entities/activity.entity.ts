@@ -17,8 +17,8 @@ export class Activity extends BaseEntity {
     //状态 0正常推荐  1私人可见  2不上推荐   -1封禁
     @Column("int", { default: 0 })
     status: number
-    @Column("decimal")
+    @Column("decimal", { default: 0 })
     lng: number
-    @Column("decimal")
+    @Column("decimal", { default: 0 })
     lat: number
 }
