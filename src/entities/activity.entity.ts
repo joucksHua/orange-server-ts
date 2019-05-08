@@ -21,4 +21,7 @@ export class Activity extends BaseEntity {
     lng: number
     @Column("decimal", { default: 0 })
     lat: number
+    /**类型 */
+    @Column("int", { default: 0 })
+    type: number
 }

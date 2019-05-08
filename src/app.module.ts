@@ -6,6 +6,7 @@ import { UsersModule } from './app/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { ConfigService } from './config/config.service';
 import * as Path from 'path';
+import { activityModule } from './app/activity.module';
 
 const Orm = (): DynamicModule => {
   const config = new ConfigService(`env/${process.env.NODE_ENV}.env`);
@@ -17,6 +18,7 @@ const Orm = (): DynamicModule => {
     username: config.databaseUserName,
     password: config.databasePassword,
     database: config.databaseName,
+    cache: config.databaseCache,
     entities: [Path.resolve(__dirname, `../${config.ormLoadingPath}/**/*.entity{.ts,.js}`)],
     subscribers: [Path.resolve(__dirname, `../${config.ormLoadingPath}/**/*.entity{.ts,.js}`)],
     synchronize: config.databaseSynchronize,
@@ -38,7 +40,8 @@ const RedisConfModule = (): DynamicModule => {
   imports: [
     RedisConfModule(),
     Orm(),
-    UsersModule
+    UsersModule,
+    activityModule
   ],
   controllers: [AppController],
   providers: [AppService],

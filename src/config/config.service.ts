@@ -39,6 +39,7 @@ export class ConfigService {
             DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
 
             DATABASE_DROPSCHEMA: Joi.boolean().default(false),
+            DATABASE_CACHE: Joi.boolean().default(false),
 
             REDIS_HOST: Joi.string().default('localhost'),
             REDIS_PORT: Joi.number().default(3306),
@@ -108,6 +109,11 @@ export class ConfigService {
     get databaseDropSchema(): boolean {
         return Boolean(this.envConfig.DATABASE_DROPSCHEMA);
     }
+    get databaseCache(): boolean {
+        return Boolean(this.envConfig.DATABASE_CACHE);
+    }
+
+
 
     get redisHost(): string {
         return this.envConfig.REDIS_HOST;

@@ -15,14 +15,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
     const status = exception.getStatus()
-    console.log("进入http-filters;url:",request.url,request.body)
+    console.log("进入http-filters;url:",request.url)
     if (exception instanceof ApiException) {
       response
         .status(status)
         .json({
           errorCode: exception.getErrorCode(),
           errorMessage: exception.getErrorMessage(),
-          date: new Date().toLocaleDateString(),
+          date: new Date().toLocaleString(),
           path: request.url,
         });
     } else {
@@ -30,7 +30,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         .status(status)
         .json({
           statusCode: status,
-          date: new Date().toLocaleDateString(),
+          date: new Date().toLocaleString(),
           path: request.url,
         });
     }

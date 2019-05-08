@@ -2,6 +2,8 @@
 export enum ApiErrorCode {
     TIMEOUT = -1, // 系统繁忙
     SUCCESS = 0, // 成功
+    /**token 过期状态码code */
+    TOKEN_EXPIRE_CODE=-10001,
     /**
      * 成功
      */

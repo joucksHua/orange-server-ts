@@ -21,9 +21,7 @@ import { JwtokenTool } from '../../helper/jwt.tool'
 @Controller('users')
 export class UsersController {
 
-    constructor(@InjectRepository(UserModel)
-    private readonly UserRepository: Repository<UserModel>,
-        private readonly redisService: RedisService,
+    constructor(private readonly redisService: RedisService,
         private readonly usersService: UsersService) {
     }
 
@@ -73,9 +71,7 @@ export class UsersController {
             if (data == undefined) {
                 return { code: 404, errorMessage: "账号密码错误", data: null }
             }
-            console.log("登录的user-----", data)
-            let token = await JwtokenTool.createJwtoken({ email: user.email, created_at: moment().format("YYYY-MM-DD HH:mm:ss") })
-            console.log("登录的token-----", token)
+            let token = await JwtokenTool.createJwtoken({ email: user.email, created_at: new Date().toLocaleString() })
             return { code: 200, errorMessage: "success", data: { token, data } };
         } catch (error) {
             return { code: 500, errorMessage: "catch err:" + error, data: null }
@@ -98,7 +94,7 @@ export class UsersController {
             let deviceInfoJson = JSON.stringify(user.devInfo);
             console.log("注册参数------", user.email, user.password, user.code, deviceInfoJson)
             user.devInfo = deviceInfoJson;
-            let token = await JwtokenTool.createJwtoken({ email: user.email, created_at: moment().format("YYYY-MM-DD HH:mm:ss") })
+            let token = await JwtokenTool.createJwtoken({ email: user.email, created_at: new Date().toLocaleString() })
             user.login_token = token;
             user.orange_id = Math.floor(Math.random() * 1000000);
             let data = await this.usersService.create(user);
@@ -109,7 +105,7 @@ export class UsersController {
         }
     }
 
-    
+
     // @Get('getAll')
     // async findAll(): Promise<User[]> {
     //     return await this.usersService.findAll();
@@ -122,17 +118,6 @@ export class UsersController {
     // async create(@Body() user: CreateUserDto) {
     //     return await this.usersService.create(user);
     // }
-    @Get("createTb")
-    async createTb() {
-        let user = new UserModel();
-        // user.name = 'novak';
-        // user.age = 20;
-        // user.address = 'shanghai';
-        let data = await this.UserRepository.save(user);
-        console.log("保存结果----", data);
-        return data;
-    }
-
     // @Put()
     // async edit() {
     //     return await this.usersService.edit();

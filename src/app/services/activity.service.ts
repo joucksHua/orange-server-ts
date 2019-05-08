@@ -1,0 +1,29 @@
+import { IActivityService } from "../interfaces/activity-service.interace";
+import { Injectable } from "@nestjs/common";
+import { Activity } from "src/entities/activity.entity";
+import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+/**activity 数据服务层 */
+@Injectable()
+export class ActivityService implements IActivityService {
+
+    constructor(@InjectRepository(Activity)
+    private readonly ActivityRepository: Repository<Activity>) {
+
+    }
+    /**分页获取推荐列表 */
+    async getActivityList(pageIndex: number, pageSize: number = 10): Promise<Activity[]> {
+        let skip = (pageIndex - 1) * pageSize
+        let take = pageSize
+        let data = await this.ActivityRepository.find({
+            skip,
+            take,
+            order: {
+                id: "DESC"
+            },
+            cache: true
+        });
+        return data;
+    }
+
+}

@@ -7,7 +7,7 @@ import { validate } from 'class-validator';
 export class ApiParamsValidationPipe implements PipeTransform {
   async transform(value: any, metadata: ArgumentMetadata) {
     const { metatype } = metadata;
-    console.log("value--------",value)
+    console.log("parms:",value)
     // 如果参数不是 类 而是普通的 JavaScript 对象则不进行验证
     if (!metatype || !this.toValidate(metatype)) {
       return value;
