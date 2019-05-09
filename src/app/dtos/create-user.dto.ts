@@ -3,6 +3,8 @@ import { IsString, IsInt, IsNotEmpty, Min, Max, IsMobilePhone, IsEmail, MinLengt
 import { ApiErrorCode } from "../../common/enums/api-error-code.enum";
 
 export class CreateUserDto implements UserModel {
+    current_address: string;
+    activity: import("../../entities/activity.entity").Activity[];
     login_token: string;
     created_at: Date;
     updated_at: Date;

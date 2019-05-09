@@ -1,11 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { Activity } from './activity.entity';
 // import { Company } from './company.entity'
 @Entity("Users")
 export class User extends BaseEntity {
     //橘觅id
     @Column("int", { unique: true })
     orange_id: number
+    /**活动 */
+    @OneToMany(type => Activity, activity => activity.user)
+    activity: Activity[];
     //手机
     @Column("varchar", { length: 25, nullable: true })
     phone: string
@@ -54,6 +58,9 @@ export class User extends BaseEntity {
     //当前在哪个省份
     @Column("varchar", { nullable: true })
     current_province: string
+    /**当前地址 */
+    @Column("varchar", { nullable: true })
+    current_address:string
     /**登录次数 */
     @Column("int", { default: 0 })
     login_count: number

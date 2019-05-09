@@ -16,6 +16,8 @@ export class ActivityService implements IActivityService {
         let skip = (pageIndex - 1) * pageSize
         let take = pageSize
         let data = await this.ActivityRepository.find({
+            relations: ["user"],
+            // select: ["id"],
             skip,
             take,
             order: {
@@ -24,6 +26,11 @@ export class ActivityService implements IActivityService {
             cache: true
         });
         return data;
+    }
+    /**添加活动 */
+    async addActivity(_activity: Activity): Promise<Activity> {
+        _activity.created_at = new Date();
+        return await this.ActivityRepository.save(_activity);
     }
 
 }
