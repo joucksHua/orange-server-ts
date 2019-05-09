@@ -22,6 +22,7 @@ export class RolesGuard implements CanActivate {
             console.log(hedaers)
             // JwtokenTool.jwtVerify()
         }
+        
         // console.log("验证方法-----", request.headers)
         // if (roles && roles.length > 0) {
         //     // await JwtokenTool.jwtVerify()
