@@ -23,6 +23,7 @@ export class UsersController {
 
     constructor(private readonly redisService: RedisService,
         private readonly usersService: UsersService) {
+            
     }
 
     //注册
