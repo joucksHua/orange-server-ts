@@ -20,10 +20,11 @@ import { ApiErrorCode } from 'src/common/enums/api-error-code.enum';
 import { JwtokenTool } from '../../helper/jwt.tool'
 @Controller('users')
 export class UsersController {
+    
 
     constructor(private readonly redisService: RedisService,
         private readonly usersService: UsersService) {
-            
+
     }
 
     //注册
