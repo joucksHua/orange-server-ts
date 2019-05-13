@@ -4,6 +4,7 @@ import { ActivityService } from "../services/activity.service";
 import { Roles, VerifyToken } from "../decorators/common.decorator";
 import { Activity } from "src/entities/activity.entity";
 import { UsersService } from "../services/users.service";
+import { User } from "src/entities/user.entity";
 @Controller('activity')
 export class ActivityController {
     constructor(private readonly activityService: ActivityService,
@@ -23,6 +24,7 @@ export class ActivityController {
     @VerifyToken()
     async addActivity(@Body() parms: Activity): Promise<any> {
         let user = await this.userService.findOne(parms.user.id);
+        parms.user = user;
         let data = await this.activityService.addActivity(parms);
         return { code: 200, msg: "success", data }
     }

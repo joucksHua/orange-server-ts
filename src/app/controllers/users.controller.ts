@@ -20,33 +20,12 @@ import { ApiErrorCode } from 'src/common/enums/api-error-code.enum';
 import { JwtokenTool } from '../../helper/jwt.tool'
 @Controller('users')
 export class UsersController {
-    
+
 
     constructor(private readonly redisService: RedisService,
         private readonly usersService: UsersService) {
 
     }
-
-    //注册
-    // @Get('register')
-    // async register(): Promise<any> {  //@Response() res
-    //     try {
-    //         console.time("t1")
-    //         let redis1 = await this.redisService.getClient();
-    //         let data2 = await redis1.set("test", "123");
-    //         console.timeEnd("t1")
-    //         console.time("t2")
-    //         // console.log("进来了----")
-    //         // let redis = await this.redisService.getClient("123aaa");
-    //         // console.log("11111111111", redis)
-    //         // let data =await redis.set("orange", "---" + moment().format("YYYY-MM-DD HH:mm:ss"))
-    //         console.log("2222222222")
-    //         return "注册成功";
-    //     } catch (error) {
-    //         return "错误---" + error;
-    //     }
-
-    // }
     /**
      * 发送验证码至邮箱
      * @param email 
@@ -71,6 +50,7 @@ export class UsersController {
         try {
             let data = await this.usersService.findOne({ email: user.email, password: user.password });
             if (data == undefined) {
+                console.log('111')
                 return { code: 404, errorMessage: "账号密码错误", data: null }
             }
             let token = await JwtokenTool.createJwtoken({ email: user.email, created_at: new Date().toLocaleString() })

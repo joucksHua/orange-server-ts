@@ -25,6 +25,18 @@ export class Activity extends BaseEntity {
     /**图片地址 */
     @Column("varchar", { length: 500 })
     img_url: string
+    /**图片类型 */
+    @Column("varchar", { length: 200, default: "" })
+    img_type: string
+    /**图片宽度 */
+    @Column("int", { default: 0 })
+    img_width: number
+    /**图片高度 */
+    @Column("int", { default: 0 })
+    img_height: number
+    /**图片封禁状态  */
+    @Column("int", { default: 0 })
+    img_ban: number
     /**类型  0活动类型  1图片类型 2图文*/
     @Column("int", { default: 0 })
     type: number
