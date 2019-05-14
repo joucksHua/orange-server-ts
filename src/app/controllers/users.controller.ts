@@ -39,7 +39,7 @@ export class UsersController {
             let Mail = new MailerTool();
             let [redisData, mailData] = await Promise.all([client.set(RedisEnum.REDIS_EMAIL_KEY + email, out), Mail.sendRegisterMailFunc(out, email)]);
             client.expire(RedisEnum.REDIS_EMAIL_KEY + email, 300);
-            return { code: 200, msg: "", data: mailData };
+            return { code: 200, msg: "success", data: mailData };
         } catch (error) {
             return { code: 500, msg: "catch err", data: null };
         }

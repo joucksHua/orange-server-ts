@@ -25,6 +25,7 @@ export class ActivityService implements IActivityService {
             },
             cache: true
         });
+        console.log("---请求列表数据")
         return data;
     }
     /**添加活动 */
