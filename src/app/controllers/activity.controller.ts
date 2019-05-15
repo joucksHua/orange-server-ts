@@ -17,6 +17,7 @@ export class ActivityController {
     async GetActivityList(@Query() parms: GetActivityListParms): Promise<any> {
         let pageIndex = Number(parms.pageIndex)
         let data = await this.activityService.getActivityList(pageIndex)
+        console.log('1111111111111111111111')
         return { code: 200, msg: 'success', data }
     }
     /**添加一条活动 */

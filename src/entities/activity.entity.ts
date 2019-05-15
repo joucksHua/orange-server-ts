@@ -40,4 +40,6 @@ export class Activity extends BaseEntity {
     /**类型  0活动类型  1图片类型 2图文*/
     @Column("int", { default: 0 })
     type: number
+
+    img_mainAxisCellCount: number
 }
