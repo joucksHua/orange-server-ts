@@ -25,6 +25,6 @@ async function main() {
   app.useGlobalFilters(new HttpExceptionFilter())  //添加过滤器
   app.useGlobalPipes(new ApiParamsValidationPipe()); //参数类验证
   app.useGlobalGuards(new RolesGuard(new Reflector())); //token 权限验证
-  app.listen(3333, "192.168.31.187")
+  app.listen(3333, "192.168.31.92")
 }
 main()
