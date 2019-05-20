@@ -25,6 +25,7 @@ const Orm = (): DynamicModule => {
     dropSchema: config.databaseDropSchema
   });
 }
+
 const RedisConfModule = (): DynamicModule => {
   const config = new ConfigService(`env/${process.env.NODE_ENV}.env`);
   return RedisModule.register({
