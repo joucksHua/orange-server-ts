@@ -83,9 +83,10 @@ export class UsersController {
             client.set(RedisEnum.REDIS_USER_TOKEN + user.email, token);
             return { code: 200, errorMessage: "success", data: { token, data } };
         } catch (error) {
+            
             return { code: 500, errorMessage: "服务器错误", data: null };
         }
-        
+
     }
 
 
