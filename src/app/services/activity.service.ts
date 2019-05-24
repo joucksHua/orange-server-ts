@@ -3,12 +3,15 @@ import { Injectable } from "@nestjs/common";
 import { Activity } from "src/entities/activity.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { LikeWorks } from "src/entities/likeWorks.entity";
 /**activity 数据服务层 */
 @Injectable()
 export class ActivityService implements IActivityService {
 
     constructor(@InjectRepository(Activity)
-    private readonly ActivityRepository: Repository<Activity>) {
+    private readonly ActivityRepository: Repository<Activity>,
+        @InjectRepository(LikeWorks)
+        private readonly LikeWorksRepository: Repository<LikeWorks>) {
 
     }
     /**分页获取推荐列表 */
@@ -34,6 +37,21 @@ export class ActivityService implements IActivityService {
     /**添加活动 */
     async addActivity(_activity: Activity): Promise<Activity> {
         _activity.created_at = new Date();
+        return await this.ActivityRepository.save(_activity);
+    }
+
+    /**点赞作品 */
+    async likeWorks(_likeWorks: LikeWorks): Promise<any> {
+        _likeWorks.created_at = new Date();
+        return await this.LikeWorksRepository.save(_likeWorks);
+    }
+    /**根据id查找 */
+    async findById(id: number): Promise<Activity> {
+        let _activity = await this.ActivityRepository.findOne({ id: id })
+        return await _activity;
+    }
+    /**修改一条数据 */
+    async update(_activity: Activity): Promise<Activity> {
         return await this.ActivityRepository.save(_activity);
     }
     /**根据高度分配axiscellcount */

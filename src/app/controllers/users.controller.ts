@@ -1,10 +1,10 @@
-import { Controller, Get, Response, Post, Put, Delete, Param, Res, HttpException, HttpStatus, Body } from '@nestjs/common';
+import { Controller, Get, Response, Post, Put, Delete, Param, Res, HttpException, HttpStatus, Body, Query } from '@nestjs/common';
 // import { User } from '../interfaces/user.interface'
 import { UsersService } from '../services/users.service';
 import { UserIdPipe } from '../pipes/user-id.pipe';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto'
-import { User as UserModel } from '../../entities/user.entity'
+import { User as UserModel, User } from '../../entities/user.entity'
 import { Repository } from 'typeorm';
 import { RedisService } from 'nestjs-redis';
 import * as moment from 'moment';
@@ -83,13 +83,21 @@ export class UsersController {
             client.set(RedisEnum.REDIS_USER_TOKEN + user.email, token);
             return { code: 200, errorMessage: "success", data: { token, data } };
         } catch (error) {
-            
+
             return { code: 500, errorMessage: "服务器错误", data: null };
         }
 
     }
-
-
+    @Get("getMyPageInfo")
+    /**获取我得主页 */
+    async getMyPageInfo(@Query() parms: User): Promise<any> {
+        try {
+            let user = await this.usersService.findOne({ id: parms.id })
+            return { code: 200, msg: "success", data: user ? user : null };
+        } catch (error) {
+            return { code: 500, msg: "服务器错误", data: null };
+        }
+    }
     // @Get('getAll')
     // async findAll(): Promise<User[]> {
     //     return await this.usersService.findAll();

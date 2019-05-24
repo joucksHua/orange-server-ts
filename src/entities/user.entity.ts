@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Activity } from './activity.entity';
+import { LikeWorks } from './likeWorks.entity';
 // import { Company } from './company.entity'
 @Entity("Users")
 export class User extends BaseEntity {
@@ -10,6 +11,9 @@ export class User extends BaseEntity {
     /**活动 */
     @OneToMany(type => Activity, activity => activity.user)
     activity: Activity[];
+    /**喜欢的作品 */
+    @OneToMany(type => LikeWorks, like_works => like_works.user)
+    like_works: LikeWorks[];
     //手机
     @Column("varchar", { length: 25, nullable: true })
     phone: string
@@ -60,7 +64,7 @@ export class User extends BaseEntity {
     current_province: string
     /**当前地址 */
     @Column("varchar", { nullable: true })
-    current_address:string
+    current_address: string
     /**登录次数 */
     @Column("int", { default: 0 })
     login_count: number

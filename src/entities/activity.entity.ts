@@ -1,11 +1,15 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
+import { LikeWorks } from './likeWorks.entity';
 @Entity("Activitys")
 export class Activity extends BaseEntity {
     /**用户 */
     @ManyToOne(type => User, user => user.activity)
     user: User;
+    /**用户 */
+    @OneToOne(type => LikeWorks, like_works => like_works.activity)
+    like_works: LikeWorks;
     //内容
     @Column("varchar")
     content: string
