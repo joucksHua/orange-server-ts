@@ -4,6 +4,7 @@ import { Activity } from "src/entities/activity.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LikeWorks } from "src/entities/likeWorks.entity";
+import { User } from "src/entities/user.entity";
 /**activity 数据服务层 */
 @Injectable()
 export class ActivityService implements IActivityService {
@@ -15,9 +16,11 @@ export class ActivityService implements IActivityService {
 
     }
     /**分页获取推荐列表 */
-    async getActivityList(pageIndex: number, pageSize: number = 10): Promise<Activity[]> {
+    async getActivityList(pageIndex: number, uid: number, pageSize: number = 10): Promise<Activity[]> {
         let skip = (pageIndex - 1) * pageSize
         let take = pageSize
+        let user = new User();
+        user.id = uid;
         let data = await this.ActivityRepository.find({
             relations: ["user"],
             // select: ["id"],
@@ -32,6 +35,7 @@ export class ActivityService implements IActivityService {
         for (const item of data) {
             item.img_mainAxisCellCount = this.getImgMainAxisCellFun(item.img_height);
         }
+        
         return data;
     }
     /**添加活动 */

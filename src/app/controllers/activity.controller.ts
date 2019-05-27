@@ -17,7 +17,8 @@ export class ActivityController {
     @VerifyToken()
     async GetActivityList(@Query() parms: GetActivityListParms): Promise<any> {
         let pageIndex = Number(parms.pageIndex)
-        let data = await this.activityService.getActivityList(pageIndex)
+        let uid = Number(parms.uid)
+        let data = await this.activityService.getActivityList(pageIndex, uid)
         console.log('1111111111111111111111', data)
         data.forEach(item => {
             item.img_url = "http://192.168.31.91:8200" + item.img_url.substr(item.img_url.indexOf("/img"))
