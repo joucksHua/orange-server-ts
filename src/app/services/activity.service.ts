@@ -35,7 +35,6 @@ export class ActivityService implements IActivityService {
         for (const item of data) {
             item.img_mainAxisCellCount = this.getImgMainAxisCellFun(item.img_height);
         }
-        
         return data;
     }
     /**添加活动 */
