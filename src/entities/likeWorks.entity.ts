@@ -10,4 +10,5 @@ export class LikeWorks extends BaseEntity {
     /**喜欢的作品 */
     @OneToOne(type => Activity, activity => activity.like_works)
     activity: Activity
+    
 }
