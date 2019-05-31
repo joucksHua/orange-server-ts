@@ -12,7 +12,8 @@ export class ActivityService implements IActivityService {
     constructor(@InjectRepository(Activity)
     private readonly ActivityRepository: Repository<Activity>,
         @InjectRepository(LikeWorks)
-        private readonly LikeWorksRepository: Repository<LikeWorks>) {
+        private readonly LikeWorksRepository: Repository<LikeWorks>
+        ) {
 
     }
     /**分页获取推荐列表 */

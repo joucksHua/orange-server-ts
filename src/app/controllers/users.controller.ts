@@ -18,6 +18,7 @@ import { UserEmailPipe } from '../pipes/user-email.pipe';
 import resultData = require('src/entities/resultData');
 import { ApiErrorCode } from 'src/common/enums/api-error-code.enum';
 import { JwtokenTool } from '../../helper/jwt.tool'
+import { UserInfo } from 'src/entities/userInfo.entity';
 @Controller('users')
 export class UsersController {
 
@@ -97,6 +98,13 @@ export class UsersController {
         } catch (error) {
             return { code: 500, msg: "服务器错误", data: null };
         }
+    }
+    @Post("addUserInfo")
+    async addUserInfo(@Body() parms: any): Promise<any> {
+
+        let data = await this.usersService.addUserInfos(parms.arr)
+        console.log("保存-------------", parms.arr.length, data)
+        return { code: 200, msg: "success", data: null }
     }
     // @Get('getAll')
     // async findAll(): Promise<User[]> {

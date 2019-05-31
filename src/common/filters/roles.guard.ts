@@ -16,7 +16,7 @@ export class RolesGuard implements CanActivate {
         // const roles = this.reflector.get<string[]>('roles', context.getHandler());
         const request = context.switchToHttp().getRequest();
         const verifyToken = this.reflector.get<Boolean>('verifyToken', context.getHandler());
-        console.log('verifyToken:', verifyToken)
+        // console.log('verifyToken:', verifyToken)
         if(verifyToken){
             let hedaers = request.headers
             console.log(hedaers)

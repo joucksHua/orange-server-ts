@@ -5,11 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User as UserModel } from '../../entities/user.entity'
 import { Repository } from 'typeorm';
 import moment = require('moment');
+import { UserInfo } from 'src/entities/userInfo.entity';
 
 @Injectable()
 export class UsersService implements IUserService {
-    constructor(@InjectRepository(UserModel)
-    private readonly UserRepository: Repository<UserModel>) {
+    constructor(
+        @InjectRepository(UserModel)
+        private readonly UserRepository: Repository<UserModel>,
+        @InjectRepository(UserInfo)
+        private readonly UserInfoRepository: Repository<UserInfo>) {
 
     }
     private static users: UserModel[] = [
@@ -39,6 +43,10 @@ export class UsersService implements IUserService {
         user.login_at = time;
         user.updated_at = time;
         return await this.UserRepository.save(user);
+    }
+    /**批量添加用户信息 */
+    async addUserInfos(user: Array<UserInfo>): Promise<any> {
+        return await this.UserInfoRepository.insert(user);
     }
 
     async edit(user: UserModel): Promise<UserModel> {
