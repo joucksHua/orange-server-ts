@@ -32,4 +32,6 @@ export class UserInfo extends BaseEntity {
     city: string
     @Column("varchar")
     province: string
+    @Column("int", { default: 1 })
+    sex:number
 }
