@@ -98,4 +98,5 @@ export class ActivityService implements IActivityService {
             return 6
         }
     }
+    
 }
