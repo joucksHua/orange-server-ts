@@ -14,7 +14,6 @@ export class ActivityService implements IActivityService {
         @InjectRepository(LikeWorks)
         private readonly LikeWorksRepository: Repository<LikeWorks>
         ) {
-
     }
     /**分页获取推荐列表 */
     async getActivityList(pageIndex: number, uid: number, pageSize: number = 10): Promise<Activity[]> {
@@ -99,5 +98,5 @@ export class ActivityService implements IActivityService {
         }
     }
     
-    
+
 }
