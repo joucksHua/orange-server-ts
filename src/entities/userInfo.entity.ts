@@ -19,6 +19,7 @@ export class UserInfo extends BaseEntity {
     weight: number
     @Column("varchar")
     bio: string
+    @Column("varchar")
     nickname: string
     @Column("varchar")
     code: string
@@ -33,5 +34,14 @@ export class UserInfo extends BaseEntity {
     @Column("varchar")
     province: string
     @Column("int", { default: 1 })
-    sex:number
+    sex: number
+    @Column("int")
+    mmid: number
+    @Column("date")
+    c_at: Date
+    @Column("date")
+    last_login: Date
+    @Column("date")
+    birthday: Date
+
 }

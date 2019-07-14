@@ -101,9 +101,9 @@ export class UsersController {
     }
     @Post("addUserInfo")
     async addUserInfo(@Body() parms: any): Promise<any> {
-
+        
         let data = await this.usersService.addUserInfos(parms.arr)
-        console.log("保存-------------", parms.arr.length, data)
+        console.log("保存-------------", data)
         return { code: 200, msg: "success", data: null }
     }
     // @Get('getAll')
